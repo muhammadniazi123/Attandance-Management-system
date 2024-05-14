@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/public/styles.css" />
+    <title>Attendance Management System</title>
+  </head>
+  <body>
+    <div class="attendance-container">
+    <header style="padding-top: 35px;">
+      <div class="user-img">
+        <img src="<%= user.profile_img %>" alt="" id="photo" />
+        <input type="file" name="profilePic" id="file" style="display: none" />
+        <label for="file" id="uploadbtn" class="fas fa-camera"></label>
+      </div>
+      <p class="p-username"><%= user.username %></p>
+      <p class="date"><%= currentdate %></p>
+    </header>
+
+    <script>
+      const img = document.querySelector("#photo");
+      const file = document.querySelector("#file");
+      const uploadBtn = document.querySelector("#uploadBtn");
+
+      file.addEventListener("change", function () {
+        const chosenFile = this.files[0];
+        if (chosenFile) {
+          const formData = new FormData();
+          formData.append("profilePic", chosenFile);
+          const urlParams = new URLSearchParams(window.location.search);
+          const username = urlParams.get("username");
+          const updateProfilePicUrl = `/updateProfilePic?username=${username}`;
+          fetch(updateProfilePicUrl, {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              img.setAttribute("src", data.profile_img);
+            })
+            .catch((error) => {
+              console.error("Error updating profile picture:", error);
+            });
+        }
+      });
+    </script>
+

@@ -1,0 +1,658 @@
+*,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #080710;
+    height: 100vh;
+    min-height: 100%;
+    margin-bottom: 20px; /* Add margin-bottom to create a gap from the bottom */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow-y: auto;
+}
+#leaveForm{
+  margin-bottom: 22%;
+}
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+.shape:first-child{
+    background: linear-gradient(
+        #1845ad,
+        #23a2f6
+    );
+    left: -80px;
+    top: -80px;
+}
+.shape:last-child{
+    background: linear-gradient(
+        to right,
+        #ff512f,
+        #f09819
+    );
+    right: -30px;
+    bottom: -80px;
+}
+form{
+    height: 520px;
+    width: 400px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+}
+form *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+form h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+label{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+::placeholder{
+    color: #e5e5e5;
+}
+button{
+    margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form .policy{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  form h3{
+    color: #707070;
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 10px;
+  }
+  form .text h3{
+    color: #333;
+    width: 100%;
+    text-align: center;
+   }
+   form .text h3 a{
+     color: #4070f4;
+     text-decoration: none;
+   }
+   form .text h3 a:hover{
+     text-decoration: underline;
+   }
+.policy {
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.policy input[type="checkbox"] {
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+}
+
+.policy label {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+header{
+  height: 110px;
+  width: 70%;
+  color: white;
+  background-color: rgba(255,255,255,0.13);
+  position: absolute;
+  transform: translate(-50%,-50%);
+  top: 20%;
+  left: 50%;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 40px rgba(8,7,16,0.6);
+  padding: 50px 35px;
+  display: flex;
+}
+header img{
+  height: 130px;
+  width: 130px;
+  border-radius: 50%;
+  position: relative;
+  bottom: 10px;
+}
+#photo{
+  height: 130px;
+  width: 130px;
+  border-radius: 50%;
+}
+#file{
+  display: none;
+}
+#uploadbtn{
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  padding: 6px 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translate(-95%);
+  margin-top: 80px;
+  color: #ffffff;
+  background-color:  rgb(112 110 110 / 80%);
+  box-shadow: 2px 4px 4px #000000a4;
+}
+.p-username{
+  margin-top: 30px;
+  margin-left: 40px;
+}
+.date {
+  margin-top: 30px;
+  margin-left: auto; 
+  margin-right: 40px; 
+}
+
+
+/* css for user.ejs */
+.button-86 {
+  all: unset;
+  margin: 0 auto;
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
+  background: transparent;
+  border: none;
+  position: relative;
+  color: #11e7f3;
+  cursor: pointer;
+  z-index: 1;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-86::after,
+.button-86::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: -99999;
+  transition: all .4s;
+}
+
+.button-86::before {
+  transform: translate(0%, 0%);
+  width: 100%;
+  height: 100%;
+  background: #28282d;
+  border-radius: 10px;
+}
+
+.button-86::after {
+  transform: translate(10px, 10px);
+  width: 35px;
+  height: 35px;
+  background: #ffffff15;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 50px;
+}
+
+.button-86:hover::before {
+  transform: translate(5%, 20%);
+  width: 110%;
+  height: 110%;
+}
+
+.button-86:hover::after {
+  border-radius: 10px;
+  transform: translate(0, 0);
+  width: 100%;
+  height: 100%;
+}
+
+.button-86:active::after {
+  transition: 0s;
+  transform: translate(0, 5%);
+}
+
+.attandance-button table {
+  text-align:center;
+}
+.attandance-button table th{
+  height: 70px;
+}
+
+.attandance-record table th,
+.attandance-record table td {
+  width: 25%; 
+  text-align: center; 
+  padding: 10px; 
+}
+.attendance-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px; 
+}
+
+.attendance-container > * {
+  margin-bottom: 30px;
+}
+.attandance-button{
+  margin-top: 270px;
+}
+header,
+.attandance-button,
+.attandance-record {
+  width: 70%;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.13);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+  padding: 20px;
+}
+
+.attendance-tables {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.attendance-tables > * {
+  flex: 1;
+}
+
+.attandance-button table,
+.attandance-record table {
+  width: 100%;
+  text-align: center;
+}
+
+.attandance-button table th,
+.attandance-button table td,
+.attandance-record table th,
+.attandance-record table td {
+  padding: 10px;
+  font-size: 18px;
+}
+.attandance-button table th{
+  font-size: 18px;
+}
+
+/* css for admin.ejs */
+.leave-application table th,
+.leave-application table td {
+  width: 25%; 
+  text-align: center; 
+  padding: 10px; 
+}
+
+.leave-application table td:last-child {
+  width: auto; /* Adjust the width automatically */
+}
+
+.leave-application table td:last-child button {
+  margin-right: 10px; /* Add margin between buttons */
+}
+
+.leave-application table td:last-child {
+  display: flex; /* Make the last cell a flex container */
+  justify-content: center; /* Center align the content horizontally */
+}
+
+.leave-application {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.13);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+  padding: 20px;
+  position: relative; /* Change to relative positioning */
+  top: 250px; /* Adjust this value to position below the header */
+  left: 35%;
+  transform: translateX(-50%);
+  height: auto;
+}
+
+.leave-application > * {
+  margin-bottom: 30px;
+}
+
+.Attandance_record table th, .leave-application table td {
+  width: 20%;
+  text-align: center;
+  padding: 10px;
+}
+
+@media (max-width:761px)
+{
+  header{
+    height: 90px;
+    width: 80%;
+    top: 15%;
+  
+  }
+  #photo {
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+}
+.p-username{
+  margin-left: 10px;
+}
+#uploadbtn {
+margin-top: 55px;
+}
+h2{
+  font-size: 16px;
+}
+table{
+  font-size: 11px;
+}
+
+.leave-application,
+.Attandance_record {
+  left: 165px;
+  top: 190px;
+  width: 80%;
+  overflow: overlay;
+
+}
+body{
+  height: 107vh;
+  overflow: scroll;
+  min-height: 100%
+}
+.icons li {
+  height: 4px;
+  width: 4px;
+}
+.dropdown-content{
+  width: 100px;
+}
+.dropdown-content a {
+  padding: 9px 10px;
+  font-size: 13px;
+}
+.attandance-button,
+.attandance-record {
+  width: 80%;
+  color: white;
+  font-size: 10px;
+
+  padding: 20px;
+}
+.attandance-record table th{
+  font-size: 11px;
+}
+.attandance-record table th,
+.attandance-record table td {
+  font-size: 10px;
+
+}
+.attandance-button table th {
+  font-size: 12px;
+}
+.attandance-button table td {
+  font-size: 11px;
+}
+.attandance-button{
+  margin-top: 200px;
+}
+.attandance-record{
+  margin-bottom: 280px;
+}
+.button-86{
+  font-size: 10px;
+  width: 30px;
+}
+.button-86::after {
+  transform: translate(10px, 10px);
+  width: 25px;
+  height: 25px;
+}
+#leaveForm {
+  margin-bottom: 22%;
+}
+
+}
+/* Drop down button */
+.showLeft{
+  background-color: transparent !important;
+  border:0px solid #0d77b6 !important;
+  text-shadow: none !important;
+  color:#ff0000 !important;
+  padding:10px;
+}
+
+.icons li {
+  background: none repeat scroll 0 0 #ffffff;
+  height: 5px;
+  width: 5px;
+  line-height: 0;
+  list-style: none outside none;
+  margin-right: 15px;
+  margin-top: 3px;
+  vertical-align: top;
+  border-radius:50%;
+  pointer-events: none;
+}
+
+.btn-left {
+  left: 0.4em;
+}
+
+.btn-right {
+  right: 0.4em;
+}
+
+.btn-left, .btn-right {
+  position: absolute;
+  top: 0.24em;
+}
+
+.dropbtn {
+  background-color: #4CAF50;
+  position: fixed;
+  color: rgb(2, 214, 252);
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #3e8e41;
+}
+
+.dropdown {
+  position: absolute;
+  display: inline-block;
+  right: 0.4em;
+}
+
+.dropdown-content {
+  display: none;
+  position: relative;
+  margin-top: 60px;
+  background-color: #f9f9f9;
+  min-width: 120px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #f1f1f1}
+
+.show {display:block;}
+
+.overlay-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.overlay-container.show {
+  display: flex;
+  opacity: 1;
+}
+.show {
+  display: block;
+}
+.btn-submit,
+.btn-close-popup {
+  margin: 56px 10px;
+ 
+}
+.dateselector{
+  display: flex;
+  justify-content: space-between;
+}
+.form-container{
+  min-height: 500px;
+  height: auto;
+  width: 60%;
+}
+.editForm-buttons{
+  display: flex;
+  justify-content: space-around;
+}
+ input[type="radio"]{
+  height: 12px;
+  width: auto;
+}
+.radio-container {
+  position: relative;
+  display: inline-block;
+  margin-right: 118px;
+  margin-bottom: 20px;
+  margin-top: 15px; /* Adjust spacing between radio button groups */
+}
+
+.radio-container input[type="radio"] {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 5px; /* Adjust spacing between radio button and label */
+}
+.radio-container label{
+  position: absolute;
+    left: 33px;
+    bottom: -18px;
+}
+#AddForm p{
+  margin-top: 15px;
+}
+#searchForm table th{
+  width: 125px;
+}
+#searchForm table td{
+  text-align: center;
+  height: 40px;
+}
+
+.form-container {
+  height: 300px; /* Set the desired height for the form */
+  overflow-y: auto; /* Add vertical scrollbar if content overflows */
+}
+
+table {
+  width: 100%; /* Make the table fill the container */
+  min-width: 100%; /* Ensure the table doesn't shrink smaller than its container */
+  table-layout: fixed; /* Fix the table layout */
+}
+
+tr {
+  display: table-row; /* Ensure table rows behave properly */
+}
+
+td, th {
+  width: 20%; /* Set width for each column */
+  padding: 8px; /* Add padding */
+  text-align: center; /* Center-align text */
+}
+.innerform{
+  display: flex;
+  justify-content: space-evenly;
+}
+.form-container p{
+  margin-top: 20px;
+
+}

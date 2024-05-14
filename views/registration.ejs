@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Attendance Management System - Registration</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form class="reg" action="/register" method="POST" style="height: 630px;">
+        <h3>Register Now</h3>
+
+        <label for="name">Full Name</label>
+        <input type="text" placeholder="Enter your name" id="username" name="username" required>
+
+        <label for="password" >Password</label>
+        <input type="password" placeholder="Create password" id="password" name="password" required>
+
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" placeholder="Confirm password" id="confirm_password" name="confirm_password" required>
+        <span id="password_error" style="color: red; display: none; font-size: 12px;">Passwords do not match</span>
+
+        <div class="policy">
+            <input type="checkbox" id="terms_condition" name="terms_condition" required>
+            <label for="terms_condition" >I accept all terms & conditions</label>
+        </div>
+        <% if (error) { %>
+            <span style="color: red;"><%= error %></span>
+        <% } %>
+
+        <button type="submit"   style="margin-top: 30px;">Register Now</button>
+
+        <h3>Already have an account? <a href="/login">login now</a></h3>
+    </form>
+</body>
+<script>
+    document.querySelector('form.reg').addEventListener('submit', function(event) {
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm_password').value;
+        const passwordError = document.getElementById('password_error');
+        
+        if (password !== confirmPassword) {
+            passwordError.style.display = 'block';
+            event.preventDefault(); // Prevent form submission
+        } else {
+            passwordError.style.display = 'none';
+        }
+    });
+</script>
+
+
+</html>

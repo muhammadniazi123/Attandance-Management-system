@@ -1,0 +1,394 @@
+<%- include("header.ejs") %>
+<script>
+       function togglePopup(formId) {
+        console.log("Toggle popup function called");
+        const overlay = document.getElementById(formId);
+        overlay.classList.toggle('show');
+    }
+
+    function showDropdown() {
+        console.log("Show dropdown function called");
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+  </script>
+<form id="attendanceForm" class="leave-application Attandance_record" action="/Attandance_record" method="post">
+    <h2>Attandance record</h2>
+    <div class="dropdown">
+        <!-- three dots -->
+        <ul class="dropbtn icons btn-right showLeft" onclick="showDropdown()">
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <!-- menu -->
+        <div id="myDropdown" class="dropdown-content">
+            <a onclick="togglePopup('searchForm')">search</a>
+            <a onclick="togglePopup('addForm')">Add</a>
+            <a onclick="togglePopup('editForm')">Edit</a>
+            <a onclick="togglePopup('deleteForm')">Delete</a>
+        </div>
+    </div>
+    <table>
+        <tr>
+            <th>Employee</th>
+            <th>Total days worked</th>
+            <th>Leaves</th>
+            <th>Absents</th>
+            <th>Grade</th>
+        </tr>
+        <% attendanceRecords.forEach(data => { %>
+        <tr>
+            <td><%= data.username %></td>
+            <td><%= data.total_days_worked %></td>
+            <td><%= data.total_leave %></td>
+            <td><%= data.total_absent %></td>
+            <td><%= data.grade %></td>
+        </tr>
+        <% }) %>
+    </table>
+</form>
+<form id="leaveForm" class="leave-application" action="/Leave_decision" method="post">
+    <h2>Application for leave</h2>
+    <table>
+        <tr>
+            <th>Applicant name</th>
+            <th>Date Applied for</th>
+            <th>Decision</th>
+        </tr>
+        <% appliedleaves.forEach(data => { %>
+        <tr>
+            <td><%= data.username %></td>
+            <td><%= new Date(data.date_applied).toLocaleDateString() %>
+            </td>
+            <td>
+                <!-- Hidden input field to store leave ID -->
+                <input type="hidden" name="leaveId" value="<%= data.id %>">
+                <button class="button-86 accept-btn" type="submit" name="decision" value="accept">Accept</button>
+                <button class="button-86 deny-btn" type="submit" name="decision" value="deny">Denied</button>
+            </td>
+        </tr>
+        <% }) %>
+    </table>
+    <!-- Hidden input field to store the decision -->
+    <input type="hidden" id="decisionInput" name="decision" value="">
+</form>
+</div>
+
+<!-- search Forms -->
+<div id="searchForm" class="overlay-container">
+    <div class="popup-box">
+        
+        <form id="search-Form" class="form-container" action="/Attendance_record" method="post">
+            <h2 style="text-align: center;">Search Form</h2>
+            <div class="dateselector">
+                <div>
+                    <label class="form-label" for="fromDate">From:</label>
+                    <input class="form-input" type="date" id="fromDate" name="fromDate" required>
+                </div>
+                <div>
+                    <label class="form-label" for="toDate">To:</label>
+                    <input class="form-input" type="date" id="toDate" name="toDate" required>
+                </div>
+                <button class="btn-submit button-86" type="submit">Submit</button>
+                <button class="btn-close-popup button-86" onclick="togglePopup('searchForm')">Close</button>
+            </div>
+
+        <table style="display: flex;justify-content: space-around;">
+            <tr></tr>
+            
+        </table>
+    </form>
+    </div>
+</div>
+<!-- addform -->
+<div id="addForm" class="overlay-container" >
+    <div class="popup-box">
+        
+        <form id="add-Form" class="form-container" action="/addAttendance" method="post">
+            <h2 style="text-align: center;">Add Form</h2>
+            <div class="innerform">
+                <div>
+                    <label class="form-label" for="Date">Date</label>
+                    <input class="form-input" type="date" id="Date" name="Date" required>
+                </div>
+                <div>
+                    <label class="form-label" for="username">Username:</label>
+                    <input class="form-input" type="text" placeholder="Username" id="username" required>
+                </div>
+            </div>
+            <p>Present:</p> 
+            <div class="radio-container">
+                <input type="radio" id="presentYes" name="present" value="Yes" required>
+                <label for="presentYes">Yes</label>
+            </div>
+            <div class="radio-container">
+                <input type="radio" id="presentNo" name="present" value="No" required>
+                <label for="presentNo">No</label>
+            </div>
+            <p>Absent:</p> 
+            <div class="radio-container">
+                <input type="radio" id="absentYes" name="absent" value="Yes" required>
+                <label for="absentYes">Yes</label>
+            </div>
+            <div class="radio-container">
+                <input type="radio" id="absentNo" name="absent" value="No" required>
+                <label for="absentNo">No</label>
+            </div>
+            <p>Leave:</p> 
+            <div class="radio-container">
+                <input type="radio" id="leaveYes" name="leave" value="Yes"required >
+                <label for="leaveYes">Yes</label>
+            </div>
+            <div class="radio-container">
+                <input type="radio" id="leaveNo" name="leave" value="No">
+
+                <label for="leaveNo">No</label>
+            </div>
+            <span id="error" style="color: red; text-align: center;margin-left: 230px;"></span>
+            <div class="editForm-buttons">
+                <button class="btn-submit button-86" type="submit">Add</button>
+                <button class="btn-close-popup button-86" onclick="togglePopup('addForm')">Close</button>
+            </div>
+        </form>
+    </div>
+</div>
+    <!-- Editform -->
+</div><div id="editForm" class="overlay-container">
+    <div class="popup-box">
+        <h2 style="color: green;">Edit Form</h2>
+        <form class="form-container" action="Addattandance">
+            <label class="form-label" for="editDate">Date</label>
+            <input class="form-input" type="date" id="editDate" name="editDate" required>
+            <label class="form-label" for="editField">Username:</label>
+            <input class="form-input" type="text" placeholder="Enter text to edit" id="editField" required>
+            <p>Present:</p> 
+            <div class="radio-container">
+                <input type="radio" id="presentYes" name="present" value="Yes">
+                <label for="presentYes">Yes</label>
+            </div>
+            <div class="radio-container">
+                <input type="radio" id="presentNo" name="present" value="No">
+                <label for="presentNo">No</label>
+            </div>
+            <p>Absent:</p> 
+            <div class="radio-container">
+                <input type="radio" id="absentYes" name="present" value="Yes">
+                <label for="absentYes">Yes</label>
+            </div>
+            <div class="radio-container">
+                <input type="radio" id="absentNo" name="present" value="No">
+                <label for="absentNo">No</label>
+            </div>
+            <p>Leave:</p> 
+            <div class="radio-container">
+                <input type="radio" id="leaveYes" name="present" value="Yes">
+                <label for="leaveYes">Yes</label>
+            </div>
+            <div class="radio-container">
+                <input type="radio" id="leaveNo" name="present" value="No">
+                <label for="leaveNo">No</label>
+            </div>
+            <div class="editForm-buttons">
+                <button class="btn-submit button-86" type="submit">Edit</button>
+                <button class="btn-close-popup button-86" onclick="togglePopup('editForm')">Close</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Deleteform -->
+<div id="deleteForm" class="overlay-container">
+    <div class="popup-box">
+        <form id="delete-Form" class="form-container" action="deleteAttendance" method="post" style="min-height: 450px;">
+            <h2 style="text-align: center; margin-bottom: 30px;">Delete Form</h2>
+            <div class="innerform">
+                <div>
+                    <label class="form-label" for="Date">Date</label>
+                    <input class="form-input" type="date" id="Date" name="Date" required>
+                </div>
+                <div>
+                    <label class="form-label" for="username">Username:</label>
+                    <input class="form-input" type="text" placeholder="Username" id="username" required>
+                </div>
+            </div>
+                <br>
+            <div class="editForm-buttons" style="margin: 0px 68px;">
+                <button class="btn-submit button-86" type="submit">Delete</button>
+                <button class="btn-close-popup button-86" onclick="togglePopup('deleteForm')">Close</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+<script>
+    const error = "<%= error %>"; // Retrieve the error message
+    function togglePopup(popupId) {
+        const popup = document.getElementById(popupId);
+        popup.classList.toggle('show');
+    }
+        document.getElementById('add-Form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission behavior
+
+            // Get the form element
+            const form = document.getElementById('addForm');
+            const isPresent = form.querySelector('input[name="present"]:checked').value;
+            const isAbsent = form.querySelector('input[name="absent"]:checked').value;
+            const isLeave = form.querySelector('input[name="leave"]:checked').value;
+            if ((isPresent === "Yes" && (isAbsent === "Yes" || isLeave === "Yes")) ||
+                (isAbsent === "Yes" && (isPresent === "Yes" || isLeave === "Yes")) ||
+                (isLeave === "Yes" && (isPresent === "Yes" || isAbsent === "Yes"))) {
+                // Display error message
+                document.getElementById('error').innerText = "Only one option can be 'Yes'.";
+            } else {
+                // Prepare the form data
+                const Present = form.querySelector('input[name="present"]:checked').value;
+                const Absent = form.querySelector('input[name="absent"]:checked').value;
+                const Leave = form.querySelector('input[name="leave"]:checked').value;
+                const username = document.getElementById('username').value;
+                const date = document.getElementById('Date').value;
+                // Send a POST request to the server
+                fetch(this.getAttribute('action'), {
+                    method: 'POST',
+                    headers: {
+                'Content-Type': 'application/json'
+                },
+                    body: JSON.stringify({present:Present,absent:Absent,leave:Leave,username:username,Date:date})
+                })
+                .then(response => {
+                if (response.ok) {
+                    alert("attandance marked succesfully");
+                } else {
+                console.error('Error marking attendance:', response.status);
+                response.json().then(data => {
+                alert("Error marking attendance");
+                });
+                }
+            })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        });
+
+
+//asdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+document.getElementById('delete-Form').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+
+        // Get the form element
+        const form = document.getElementById('deleteForm');
+        const username = form.querySelector('#username').value;
+        const date = form.querySelector('#Date').value;
+
+        // Check if username and date are empty
+        if (!username || !date) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        // Send a POST request to the server
+        fetch(this.getAttribute('action'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: username, Date: date })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Attendance deleted successfully");
+            } else {
+                console.error('Error deleting attendance:', response.status);
+                response.json().then(data => {
+                    alert("Error deleting attendance");
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert("An error occurred while deleting attendance.");
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('search-Form').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    const fromDate = document.getElementById('fromDate').value;
+    const toDate = document.getElementById('toDate').value;
+    fetch(this.getAttribute('action'), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ fromDate: fromDate, toDate: toDate })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle response data
+        if (data.attendanceRecords && data.attendanceRecords.length > 0) {
+            togglePopup('search-Form');
+
+            // Display the fetched data in the table within the search form
+            const tableBody = document.querySelector('#searchForm table tbody');
+            tableBody.innerHTML = ''; // Clear existing table rows
+
+            const row = document.createElement('tr');
+                row.innerHTML = `
+                <th>Employee</th>
+                <th>Present</th>
+                <th>Leave</th>
+                <th>Absent</th>
+                <th>Date </th>
+                `;
+                tableBody.appendChild(row);
+                data.attendanceRecords.forEach(record => {
+                const row = document.createElement('tr');
+                const datePart = record.attendance_date.split('T')[0];
+                row.innerHTML = `
+                    <td>${record.username}</td>
+                    <td>${record.attendance_status}</td>
+                    <td>${record.leave_status}</td>
+                    <td>${record.absent_status}</td>
+                    <td>${datePart}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        } else {
+            // Display a message if no attendance records were found
+            console.log("No attendance records found.");
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+});
+    // Check if error is not empty
+    if (error.trim() !== "") {
+        alert(error); 
+    }
+    document.querySelectorAll('.accept-btn, .deny-btn').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const decision = this.value; 
+            document.getElementById('decisionInput').value = decision; 
+            document.getElementById('leaveForm').submit(); // Submit the form
+        });
+    });
+    
+</script>

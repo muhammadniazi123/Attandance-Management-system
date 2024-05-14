@@ -1,0 +1,111 @@
+<%- include("header.ejs") %>
+
+<div class="attandance-button">
+  <table style="width:100%">
+    <tr>
+      <th>Present</th>
+      <th>Absent</th>
+      <th>leave</th>
+    </tr>
+    <tr>
+      <td><%= totals.attendance %></td>
+      <td><%= totals.absent %></td>
+      <td><%= totals.leave %></td>
+    </tr>
+    <tr>
+      <tr>
+        <td><button class="button-86" role="button" onclick="markAttendance('present')" >Present</button></td>
+        <td><button class="button-86" role="button" onclick="markAttendance('absent')">Absent</button></td>
+        <td><button class="button-86" role="button" onclick="applyForLeave()">Apply for leave</button></td>
+      </tr>
+    </tr>
+  </table>
+</div>
+
+<div class="attandance-record">
+  <table>
+    <tr>
+      <th>Present</th>
+      <th>Absent</th>
+      <th>Leave</th>
+      <th>Date</th>
+    </tr>
+    <% userAttendance.forEach(data => { %>
+      <tr>
+        <td><%= data.attendance_status ? 'Yes' : 'No' %></td>
+        <td><%= data.absent_status ? 'Yes' : 'No' %></td>
+        <td><%= data.leave_status ? 'Yes' : 'No' %></td>
+        <td><%= new Date(data.attendance_date).toLocaleDateString() %> </td>
+      </tr>
+    <% }) %>
+  </table>
+</div>
+</body>
+<script>
+const username = '<%= user.username %>';
+
+function markAttendance(status) {
+    console.log("Marking attendance:", status);
+    const attendancestatus = status; 
+    const userElement = document.querySelector('.p-username');
+    const username = userElement.innerText.trim();
+
+    if (!username) {
+        console.error('Username not available.');
+        return;
+    }
+
+    fetch('/markAttendance', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ user_name: username, attendancestatus })
+})
+.then(response => {
+    if (response.ok) {
+        window.location.reload();
+    } else {
+        console.error('Error marking attendance:', response.status);
+        response.json().then(data => {
+            alert(data.error);
+        });
+    }
+})
+.catch(error => console.error('Error marking attendance:', error));
+console.log('User name:', username);
+
+
+}
+
+function applyForLeave() {
+    const userElement = document.querySelector('.p-username');
+    const username = userElement.innerText.trim();
+    const Applydate='<%= currentdate %>'
+    if (!username) {
+        console.error('Username not available.');
+        return;
+    }
+    fetch('/applyForLeave', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ user_name: username,Applydate })
+    })
+    .then(response => {
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            console.error('Error applying for leave:', response.status);
+            response.json().then(data => {
+            alert(data.error);
+        });
+        }
+    })
+    .catch(error => console.error('Error applying for leave:', error));
+    console.log('User name:', username);
+    console.log(Applydate);
+}
+
+</script>
